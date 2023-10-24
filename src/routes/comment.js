@@ -4,14 +4,14 @@ const connection = require('../utils/databaseConnection');
 
 router.post('/add', (req, res) => {
 
-    const { projectId, name, description, state, creationDate, deadline } = req.body;
+    const { taskId, userId, state, content, date } = req.body;
 
-    connection.query('INSERT INTO tasks SET ?', { projectId: projectId, name: name, description: description, state: state, creationDate: creationDate, deadline: deadline }, (error, results) => {
+    connection.query('INSERT INTO comments SET ?', { taskId: taskId, userId: userId, state: state, content: content, date: date }, (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                res.json({ response: `Registro de Tarea exitosa. ID: ${results.insertId}` });
+                res.json({ response: `Registro de Comentario exitoso. ID: ${results.insertId}` });
             }
 
         } catch (error) {
@@ -23,12 +23,12 @@ router.post('/add', (req, res) => {
 
 router.get('/get-all', (req, res) => {
 
-    connection.query(`SELECT * FROM tasks`, (error, results) => {
+    connection.query(`SELECT * FROM comments`, (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                res.json({ tasks: results });
+                res.json({ comments: results });
             }
 
         } catch (error) {
@@ -38,19 +38,19 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get/:taskId', (req, res) => {
+router.get('/get/:commentId', (req, res) => {
 
-    const taskId = req.params.taskId;
+    const commentId = req.params.commentId;
 
-    connection.query('SELECT * FROM tasks WHERE taskId = ?', [taskId], (error, results) => {
+    connection.query('SELECT * FROM comments WHERE commentId = ?', [commentId], (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
                 if (results[0]) {
-                    res.json({ task: results[0] });
+                    res.json({ comment: results[0] });
                 } else {
-                    res.status(400).json({ error: 'No se encontró la tarea solicitada' });
+                    res.status(400).json({ error: 'No se encontró el comentario solicitado' });
                 }
             }
         } catch (error) {
@@ -60,24 +60,24 @@ router.get('/get/:taskId', (req, res) => {
 
 });
 
-router.put('/edit/:taskId', (req, res) => {
+router.put('/edit/:commentId', (req, res) => {
 
-    const taskId = req.params.taskId;
+    const commentId = req.params.commentId;
 
-    const { name, description, state, creationDate, deadline } = req.body;
+    const { taskId, userId, state, content, date } = req.body;
 
-    const updatedInformation = { name, description, state, creationDate, deadline };
+    const updatedInformation = { taskId, userId, state, content, date };
 
-    connection.query('UPDATE tasks SET ? WHERE taskId = ?', [updatedInformation, taskId], (error, results) => {
+    connection.query('UPDATE comments SET ? WHERE commentId = ?', [updatedInformation, commentId], (error, results) => {
 
         try {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
                 if (results[0]) {
-                    res.json({ response: `Tarea actualizada. ID: ${taskId}` });
+                    res.json({ response: `Comentario actualizado. ID: ${commentId}` });
                 } else {
-                    res.json({ error: 'Tarea no encontrada' });
+                    res.json({ error: 'Comentario no encontrado' });
                 }
             }
 
@@ -90,17 +90,17 @@ router.put('/edit/:taskId', (req, res) => {
 
 });
 
-router.delete('/delete/:taskId', (req, res) => {
+router.delete('/delete/:commentId', (req, res) => {
 
-    const taskId = req.params.taskId;
+    const commentId = req.params.commentId;
 
-    connection.query('DELETE FROM tasks WHERE taskId = ?', [taskId], (error, results) => {
+    connection.query('DELETE FROM comments WHERE commentId = ?', [commentId], (error, results) => {
 
         try {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                res.json({ response: 'Tarea eliminada' });
+                res.json({ response: 'Comentario eliminado' });
             }
 
         } catch (error) {

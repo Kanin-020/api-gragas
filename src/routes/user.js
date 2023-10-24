@@ -159,7 +159,11 @@ router.put('/edit/:userId', (req, res) => {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
-                res.json({ response: `Usuario actualizado. ID: ${userId}` });
+                if (results[0]) {
+                    res.json({ response: `Usuario actualizado. ID: ${userId}` });
+                } else {
+                    res.json({ error: 'No se ha encontrado el usuario' });
+                }
             }
 
         } catch (error) {

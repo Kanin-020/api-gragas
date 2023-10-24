@@ -100,11 +100,7 @@ router.delete('/delete/:projectId', (req, res) => {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ response: 'Proyecto eliminado' });
-                } else {
-                    res.json({ error: 'Proyecto no encontrado' });
-                }
+                res.json({ response: 'Proyecto eliminado' });
             }
 
         } catch (error) {
