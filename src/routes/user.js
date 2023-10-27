@@ -6,13 +6,13 @@ router.post('/register', (req, res) => {
 
     const dateObject = new Date();
 
-    const { name, email, password, rol } = req.body;
+    const { name, email, password, role } = req.body;
 
     const creationDate = dateObject.toLocaleString();
 
     const lastLoginDate = 'none';
 
-    connection.query('INSERT INTO users SET ?', { name: name, email: email, password: password, rol: rol, creationDate: creationDate, lastLoginDate: lastLoginDate }, async (error, results) => {
+    connection.query('INSERT INTO users SET ?', { name: name, email: email, password: password, role: role, creationDate: creationDate, lastLoginDate: lastLoginDate }, async (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
@@ -48,7 +48,9 @@ router.post('/login', (req, res) => {
                 if (user.password == password) {
 
                     connection.query(dateQuery, () => {
-                        res.json({ response: 'Inicio de sesión válido' });
+                        res.json({
+                            role: results[0].role,
+                        });
                     });
 
                 }
@@ -83,7 +85,7 @@ router.get('/get-all', (req, res) => {
 
 router.get('/get-workers', (req, res) => {
 
-    connection.query(`SELECT * FROM users WHERE rol = 'trabajador'`, (error, results) => {
+    connection.query(`SELECT * FROM users WHERE role = 'trabajador'`, (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
@@ -104,7 +106,7 @@ router.get('/get-workers', (req, res) => {
 
 router.get('/get-administrators', (req, res) => {
 
-    connection.query(`SELECT * FROM users WHERE rol = 'administrador'`, (error, results) => {
+    connection.query(`SELECT * FROM users WHERE role = 'administrador'`, (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
@@ -149,9 +151,9 @@ router.put('/edit/:userId', (req, res) => {
 
     const userId = req.params.userId;
 
-    const { name, email, password, rol } = req.body;
+    const { name, email, password, role } = req.body;
 
-    const updatedInformation = { name, email, password, rol };
+    const updatedInformation = { name, email, password, role };
 
     connection.query('UPDATE users SET ? WHERE userId = ?', [updatedInformation, userId], (error, results) => {
 
