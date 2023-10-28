@@ -64,7 +64,7 @@ router.put('/edit/:commentId', (req, res) => {
 
     const commentId = req.params.commentId;
 
-    const { state, content, date } = req.body;
+    const { state, content } = req.body;
 
     const updatedInformation = { state, content, date };
 
