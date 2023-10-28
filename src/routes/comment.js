@@ -64,9 +64,9 @@ router.put('/edit/:commentId', (req, res) => {
 
     const commentId = req.params.commentId;
 
-    const { taskId, userId, state, content, date } = req.body;
+    const { state, content, date } = req.body;
 
-    const updatedInformation = { taskId, userId, state, content, date };
+    const updatedInformation = { state, content, date };
 
     connection.query('UPDATE comments SET ? WHERE commentId = ?', [updatedInformation, commentId], (error, results) => {
 
