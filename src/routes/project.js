@@ -74,11 +74,7 @@ router.put('/edit/:projectId', (req, res) => {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ response: `Proyecto actualizado. ID: ${projectId}` });
-                } else {
-                    res.json({ error: 'Proyecto no encontrado' });
-                }
+                res.json({ response: `Proyecto actualizado. ID: ${projectId}` });
             }
 
         } catch (error) {

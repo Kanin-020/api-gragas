@@ -74,11 +74,7 @@ router.put('/edit/:taskId', (req, res) => {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ response: `Tarea actualizada. ID: ${taskId}` });
-                } else {
-                    res.json({ error: 'Tarea no encontrada' });
-                }
+                res.json({ response: `Tarea actualizada. ID: ${taskId}` });
             }
 
         } catch (error) {

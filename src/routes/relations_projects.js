@@ -140,11 +140,7 @@ router.put('/edit/:relation_projectId', (req, res) => {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ response: `Relación modificada. ID: ${relation_projectId}` });
-                } else {
-                    res.json({ error: 'Relación no encontrada' });
-                }
+                res.json({ response: `Relación modificada. ID: ${relation_projectId}` });
             }
 
         } catch (error) {

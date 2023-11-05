@@ -140,11 +140,7 @@ router.put('/edit/:relation_commentId', (req, res) => {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ response: `Relación modificada. ID: ${relation_commentId}` });
-                } else {
-                    res.json({ error: 'Relación no encontrada' });
-                }
+                res.json({ response: `Relación modificada. ID: ${relation_commentId}` });
             }
 
         } catch (error) {

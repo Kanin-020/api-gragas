@@ -74,11 +74,7 @@ router.put('/edit/:commentId', (req, res) => {
             if (error) {
                 res.status(400).send({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ response: `Comentario actualizado. ID: ${commentId}` });
-                } else {
-                    res.json({ error: 'Comentario no encontrado' });
-                }
+                res.json({ response: `Comentario actualizado. ID: ${commentId}` });
             }
 
         } catch (error) {
