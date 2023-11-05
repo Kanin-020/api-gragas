@@ -4,9 +4,9 @@ const connection = require('../utils/databaseConnection');
 
 router.post('/add', (req, res) => {
 
-    const { name, description, state, creationDate, deadline } = req.body;
+    const { name, description, status, creationDate, deadline } = req.body;
 
-    connection.query('INSERT INTO projects SET ?', { name: name, description: description, state: state, creationDate: creationDate, deadline: deadline }, (error, results) => {
+    connection.query('INSERT INTO projects SET ?', { name: name, description: description, status: status, creationDate: creationDate, deadline: deadline }, (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
@@ -64,9 +64,9 @@ router.put('/edit/:projectId', (req, res) => {
 
     const projectId = req.params.projectId;
 
-    const { name, description, state, creationDate, deadline } = req.body;
+    const { name, description, status, creationDate, deadline } = req.body;
 
-    const updatedInformation = { name, description, state, creationDate, deadline };
+    const updatedInformation = { name, description, status, creationDate, deadline };
 
     connection.query('UPDATE projects SET ? WHERE projectId = ?', [updatedInformation, projectId], (error, results) => {
 

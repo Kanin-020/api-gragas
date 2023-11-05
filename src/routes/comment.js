@@ -4,9 +4,9 @@ const connection = require('../utils/databaseConnection');
 
 router.post('/add', (req, res) => {
 
-    const { taskId, userId, state, content, date } = req.body;
+    const { status, content, date } = req.body;
 
-    connection.query('INSERT INTO comments SET ?', { taskId: taskId, userId: userId, state: state, content: content, date: date }, (error, results) => {
+    connection.query('INSERT INTO comments SET ?', { status: status, content: content, date: date }, (error, results) => {
         try {
             if (error) {
                 res.status(400).json({ error: error });
@@ -64,9 +64,9 @@ router.put('/edit/:commentId', (req, res) => {
 
     const commentId = req.params.commentId;
 
-    const { state, content } = req.body;
+    const { status, content } = req.body;
 
-    const updatedInformation = { state, content, date };
+    const updatedInformation = { status, content, date };
 
     connection.query('UPDATE comments SET ? WHERE commentId = ?', [updatedInformation, commentId], (error, results) => {
 
