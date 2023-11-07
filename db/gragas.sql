@@ -155,15 +155,15 @@ CREATE TABLE IF NOT EXISTS `tasks` (
 
 INSERT INTO `tasks` (`taskId`, `name`, `description`, `status`, `creationDate`, `deadline`) VALUES
 (1, 'Tarea1', 'Descripción de tarea', 'Activo', 'hoy', 'mañana'),
-(2, 'Tarea2', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(3, 'Tarea3', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(4, 'Tarea4', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(5, 'Tarea5', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(6, 'Tarea6', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(7, 'Tarea7', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(8, 'Tarea8', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(9, 'Tarea9', 'descripcion1', 'activo', 'creacion', 'finalizacion'),
-(10, 'Tarea10', 'descripcion1', 'activo', 'creacion', 'finalizacion');
+(2, 'Tarea2', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(3, 'Tarea3', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(4, 'Tarea4', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(5, 'Tarea5', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(6, 'Tarea6', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(7, 'Tarea7', 'descripcion1', 'Pendiente', 'creacion', 'finalizacion'),
+(8, 'Tarea8', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(9, 'Tarea9', 'descripcion1', 'Activo', 'creacion', 'finalizacion'),
+(10, 'Tarea10', 'descripcion1', 'Activo', 'creacion', 'finalizacion');
 
 -- --------------------------------------------------------
 

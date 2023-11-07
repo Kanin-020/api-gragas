@@ -92,7 +92,7 @@ router.get('/get/task/:taskId', (req, res) => {
                 res.status(400).json({ error: error });
             } else {
                 if (results[0]) {
-                    res.json({ relations_tasks: results });
+                    res.json({ relations_comments: results });
                 } else {
                     res.status(400).json({ error: 'No se encontró la relación solicitada' });
                 }
