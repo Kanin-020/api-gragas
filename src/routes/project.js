@@ -11,7 +11,10 @@ router.post('/add', (req, res) => {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                res.json({ response: `Registro de proyecto exitoso. ID: ${results.insertId}` });
+                res.json({
+                    projectId: results.insertId,
+                    response: `Registro de proyecto exitoso. ID: ${results.insertId}`
+                });
             }
 
         } catch (error) {

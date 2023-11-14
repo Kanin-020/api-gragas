@@ -47,11 +47,7 @@ router.get('/get/:relation_projectId', (req, res) => {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ relation_projects: results[0] });
-                } else {
-                    res.status(400).json({ error: 'No se encontró la relación solicitada' });
-                }
+                res.json({ relation_projects: results[0] });
             }
         } catch (error) {
             res.status(500).json({ error: error });
@@ -69,11 +65,7 @@ router.get('/get/project/:projectId', (req, res) => {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ relations_projects: results });
-                } else {
-                    res.status(400).json({ error: 'No se encontró la relación solicitada' });
-                }
+                res.json({ relations_projects: results });
             }
         } catch (error) {
             res.status(500).json({ error: error });
@@ -91,11 +83,7 @@ router.get('/get/task/:taskId', (req, res) => {
             if (error) {
                 res.status(400).json({ error: error });
             } else {
-                if (results[0]) {
-                    res.json({ relations_projects: results });
-                } else {
-                    res.status(400).json({ error: 'No se encontró la relación solicitada' });
-                }
+                res.json({ relations_projects: results });
             }
         } catch (error) {
             res.status(500).json({ error: error });
