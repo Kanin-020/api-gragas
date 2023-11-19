@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../utils/databaseConnection');
+const { verifyToken } = require('../utils/jsonWebTokenGenerator');
 
 
 router.post('/add', (req, res) => {
@@ -21,7 +22,7 @@ router.post('/add', (req, res) => {
 
 });
 
-router.get('/get-all', (req, res) => {
+router.get('/get-all', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM relations_projects`, (error, results) => {
         try {
@@ -38,7 +39,7 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get/:relation_projectId', (req, res) => {
+router.get('/get/:relation_projectId', verifyToken, (req, res) => {
 
     const relation_projectId = req.params.relation_projectId;
 
@@ -56,7 +57,7 @@ router.get('/get/:relation_projectId', (req, res) => {
 
 });
 
-router.get('/get/project/:projectId', (req, res) => {
+router.get('/get/project/:projectId', verifyToken, (req, res) => {
 
     const projectId = req.params.projectId;
 
@@ -74,7 +75,7 @@ router.get('/get/project/:projectId', (req, res) => {
 
 });
 
-router.get('/get/task/:taskId', (req, res) => {
+router.get('/get/task/:taskId', verifyToken, (req, res) => {
 
     const taskId = req.params.taskId;
 
@@ -92,7 +93,7 @@ router.get('/get/task/:taskId', (req, res) => {
 
 });
 
-router.get('/get/user/:userId', (req, res) => {
+router.get('/get/user/:userId', verifyToken, (req, res) => {
 
     const userId = req.params.userId;
 
@@ -114,7 +115,7 @@ router.get('/get/user/:userId', (req, res) => {
 
 });
 
-router.put('/edit/:relation_projectId', (req, res) => {
+router.put('/edit/:relation_projectId', verifyToken, (req, res) => {
 
     const relation_projectId = req.params.relation_projectId;
 
@@ -140,7 +141,7 @@ router.put('/edit/:relation_projectId', (req, res) => {
 
 });
 
-router.delete('/delete/:relation_projectId', (req, res) => {
+router.delete('/delete/:relation_projectId', verifyToken, (req, res) => {
 
     const relation_projectId = req.params.relation_projectId;
 

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../utils/databaseConnection');
+const { verifyToken } = require('../utils/jsonWebTokenGenerator');
 
-router.post('/add', (req, res) => {
+router.post('/add', verifyToken, (req, res) => {
 
     const { name, description, status, creationDate, deadline } = req.body;
 
@@ -21,7 +22,7 @@ router.post('/add', (req, res) => {
 
 });
 
-router.get('/get-all', (req, res) => {
+router.get('/get-all', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM tasks`, (error, results) => {
         try {
@@ -38,7 +39,7 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get/:taskId', (req, res) => {
+router.get('/get/:taskId', verifyToken, (req, res) => {
 
     const taskId = req.params.taskId;
 
@@ -60,7 +61,7 @@ router.get('/get/:taskId', (req, res) => {
 
 });
 
-router.put('/edit/:taskId', (req, res) => {
+router.put('/edit/:taskId', verifyToken, (req, res) => {
 
     const taskId = req.params.taskId;
 
@@ -86,7 +87,7 @@ router.put('/edit/:taskId', (req, res) => {
 
 });
 
-router.delete('/delete/:taskId', (req, res) => {
+router.delete('/delete/:taskId', verifyToken, (req, res) => {
 
     const taskId = req.params.taskId;
 

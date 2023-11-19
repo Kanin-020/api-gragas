@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../utils/databaseConnection');
+const { verifyToken } = require('../utils/jsonWebTokenGenerator');
 
 
-router.post('/add', (req, res) => {
+router.post('/add', verifyToken, (req, res) => {
 
     const { commentId, taskId, userId } = req.body;
 
@@ -21,7 +22,7 @@ router.post('/add', (req, res) => {
 
 });
 
-router.get('/get-all', (req, res) => {
+router.get('/get-all', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM relations_comments`, (error, results) => {
         try {
@@ -38,7 +39,7 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get/:relation_commentId', (req, res) => {
+router.get('/get/:relation_commentId', verifyToken, (req, res) => {
 
     const relation_commentId = req.params.relation_commentId;
 
@@ -60,7 +61,7 @@ router.get('/get/:relation_commentId', (req, res) => {
 
 });
 
-router.get('/get/comment/:commentId', (req, res) => {
+router.get('/get/comment/:commentId', verifyToken, (req, res) => {
 
     const commentId = req.params.commentId;
 
@@ -78,7 +79,7 @@ router.get('/get/comment/:commentId', (req, res) => {
 
 });
 
-router.get('/get/task/:taskId', (req, res) => {
+router.get('/get/task/:taskId', verifyToken, (req, res) => {
 
     const taskId = req.params.taskId;
 
@@ -96,7 +97,7 @@ router.get('/get/task/:taskId', (req, res) => {
 
 });
 
-router.get('/get/user/:userId', (req, res) => {
+router.get('/get/user/:userId', verifyToken, (req, res) => {
 
     const userId = req.params.userId;
 
@@ -114,7 +115,7 @@ router.get('/get/user/:userId', (req, res) => {
 
 });
 
-router.put('/edit/:relation_commentId', (req, res) => {
+router.put('/edit/:relation_commentId', verifyToken, (req, res) => {
 
     const relation_commentId = req.params.relation_commentId;
 
@@ -140,7 +141,7 @@ router.put('/edit/:relation_commentId', (req, res) => {
 
 });
 
-router.delete('/delete/:relation_commentId', (req, res) => {
+router.delete('/delete/:relation_commentId', verifyToken, (req, res) => {
 
     const relation_commentId = req.params.relation_commentId;
 

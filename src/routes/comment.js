@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../utils/databaseConnection');
+const { verifyToken } = require('../utils/jsonWebTokenGenerator');
 
-router.post('/add', (req, res) => {
+router.post('/add', verifyToken, (req, res) => {
 
     const { status, content, date } = req.body;
 
@@ -21,7 +22,7 @@ router.post('/add', (req, res) => {
 
 });
 
-router.get('/get-all', (req, res) => {
+router.get('/get-all', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM comments`, (error, results) => {
         try {
@@ -38,7 +39,7 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get/:commentId', (req, res) => {
+router.get('/get/:commentId', verifyToken, (req, res) => {
 
     const commentId = req.params.commentId;
 
@@ -60,7 +61,7 @@ router.get('/get/:commentId', (req, res) => {
 
 });
 
-router.put('/edit/:commentId', (req, res) => {
+router.put('/edit/:commentId', verifyToken, (req, res) => {
 
     const commentId = req.params.commentId;
 
@@ -86,7 +87,7 @@ router.put('/edit/:commentId', (req, res) => {
 
 });
 
-router.delete('/delete/:commentId', (req, res) => {
+router.delete('/delete/:commentId', verifyToken, (req, res) => {
 
     const commentId = req.params.commentId;
 

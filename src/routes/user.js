@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const jsonWebToken = require('jsonwebtoken');
 const connection = require('../utils/databaseConnection');
+const { generateSecretWord, verifyToken } = require('../utils/jsonWebTokenGenerator');
 
 router.post('/register', (req, res) => {
 
@@ -47,10 +49,13 @@ router.post('/login', (req, res) => {
 
                 if (user.password == password) {
 
+                    const token = jsonWebToken.sign(user, generateSecretWord(), { expiresIn: '1h' });
+
                     connection.query(dateQuery, () => {
                         res.json({
                             userId: results[0].userId,
                             role: results[0].role,
+                            token: token
                         });
                     });
 
@@ -67,7 +72,7 @@ router.post('/login', (req, res) => {
 
 });
 
-router.get('/get-all', (req, res) => {
+router.get('/get-all', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM users`, (error, results) => {
         try {
@@ -84,7 +89,7 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get-workers', (req, res) => {
+router.get('/get-workers', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM users WHERE role = 'trabajador'`, (error, results) => {
         try {
@@ -105,7 +110,7 @@ router.get('/get-workers', (req, res) => {
 
 });
 
-router.get('/get-administrators', (req, res) => {
+router.get('/get-administrators', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM users WHERE role = 'administrador'`, (error, results) => {
         try {
@@ -126,7 +131,7 @@ router.get('/get-administrators', (req, res) => {
 
 });
 
-router.get('/get/:userId', (req, res) => {
+router.get('/get/:userId', verifyToken, (req, res) => {
 
     const userId = req.params.userId;
 
@@ -148,7 +153,7 @@ router.get('/get/:userId', (req, res) => {
 
 });
 
-router.put('/edit/:userId', (req, res) => {
+router.put('/edit/:userId', verifyToken, (req, res) => {
 
     const userId = req.params.userId;
 
@@ -174,7 +179,7 @@ router.put('/edit/:userId', (req, res) => {
 
 });
 
-router.delete('/delete/:userId', (req, res) => {
+router.delete('/delete/:userId', verifyToken, (req, res) => {
 
     const userId = req.params.userId;
 

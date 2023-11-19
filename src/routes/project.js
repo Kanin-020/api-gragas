@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../utils/databaseConnection');
+const { verifyToken } = require('../utils/jsonWebTokenGenerator');
 
-router.post('/add', (req, res) => {
+router.post('/add', verifyToken, (req, res) => {
 
     const { name, description, status, creationDate, deadline } = req.body;
 
@@ -24,7 +25,7 @@ router.post('/add', (req, res) => {
 
 });
 
-router.get('/get-all', (req, res) => {
+router.get('/get-all', verifyToken, (req, res) => {
 
     connection.query(`SELECT * FROM projects`, (error, results) => {
         try {
@@ -41,7 +42,7 @@ router.get('/get-all', (req, res) => {
 
 });
 
-router.get('/get/:projectId', (req, res) => {
+router.get('/get/:projectId', verifyToken, (req, res) => {
 
     const projectId = req.params.projectId;
 
@@ -63,7 +64,7 @@ router.get('/get/:projectId', (req, res) => {
 
 });
 
-router.put('/edit/:projectId', (req, res) => {
+router.put('/edit/:projectId', verifyToken, (req, res) => {
 
     const projectId = req.params.projectId;
 
@@ -89,7 +90,7 @@ router.put('/edit/:projectId', (req, res) => {
 
 });
 
-router.delete('/delete/:projectId', (req, res) => {
+router.delete('/delete/:projectId', verifyToken, (req, res) => {
 
     const projectId = req.params.projectId;
 
