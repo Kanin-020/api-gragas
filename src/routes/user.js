@@ -47,19 +47,33 @@ router.post('/login', (req, res) => {
 
                 const user = results[0];
 
-                if (user.password == password) {
+                if (user) {
 
-                    const token = jsonWebToken.sign(user, generateSecretWord(), { expiresIn: '1h' });
+                    if (user.password == password) {
 
-                    connection.query(dateQuery, () => {
-                        res.json({
-                            userId: results[0].userId,
-                            role: results[0].role,
-                            token: token
+                        const token = jsonWebToken.sign(user, generateSecretWord(), { expiresIn: '1h' });
+
+                        connection.query(dateQuery, () => {
+                            res.json({
+                                userId: results[0].userId,
+                                role: results[0].role,
+                                token: token,
+                                ok: true
+                            });
                         });
-                    });
 
+                    } else {
+                        res.json({
+                            ok: false
+                        })
+                    }
+
+                } else {
+                    res.json({
+                        ok: false
+                    })
                 }
+
 
             }
 
