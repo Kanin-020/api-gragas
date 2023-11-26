@@ -6,4 +6,14 @@ const connection = mysql.createConnection(({
     database: 'gragas'
 }));
 
+connection.connect((error) => {
+
+    if (error) {
+        console.error('Error al establecer la conexión a la base de datos:', error.message);
+        throw new Error('Error al establecer la conexión a la base de datos');
+    }
+    console.log('Conexión exitosa a la base de datos');
+
+});
+
 module.exports = connection;
