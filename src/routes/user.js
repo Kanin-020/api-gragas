@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jsonWebToken = require('jsonwebtoken');
 const connection = require('../utils/databaseConnection');
-const { generateSecretWord, verifyToken } = require('../utils/jsonWebTokenGenerator');
+const { verifyToken } = require('../utils/jsonWebTokenGenerator');
 
 router.post('/register', (req, res) => {
 
@@ -51,7 +51,7 @@ router.post('/login', (req, res) => {
 
                     if (user.password == password) {
 
-                        const token = jsonWebToken.sign(user, generateSecretWord(), { expiresIn: '1h' });
+                        const token = jsonWebToken.sign(user, "ad[sdaq*adws");
 
                         connection.query(dateQuery, () => {
                             res.json({
