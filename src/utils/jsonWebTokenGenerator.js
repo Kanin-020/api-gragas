@@ -1,12 +1,11 @@
 const jsonWebToken = require('jsonwebtoken');
 
-var secretWordGlobal;
 
 const verifyToken = (req, res, next) => {
 
     const token = req.headers['authorization'];
 
-    const secretWord = getSecretWord();
+    const secretWord = "ad[sdaq*adws";
 
     if (!token) {
         return res.status(403).json({ error: 'Token no proporcionado' });
@@ -28,31 +27,4 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-const generateSecretWord = () => {
-
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
-
-    const secretWordLength = 10;
-
-    let secretWord = '';
-
-    for (let i = 0; i < secretWordLength; i++) {
-        const randomCharacter = characters.charAt(Math.floor(Math.random() * characters.length));
-        secretWord += randomCharacter;
-    }
-
-    setSecretWord(secretWord);
-
-    return secretWord;
-
-}
-
-const setSecretWord = (word) => {
-    secretWordGlobal = word;
-}
-
-const getSecretWord = () => {
-    return secretWordGlobal;
-}
-
-module.exports = { verifyToken, generateSecretWord };
+module.exports = { verifyToken };
